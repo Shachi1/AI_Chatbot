@@ -1,0 +1,54 @@
+generator db {
+  provider             = "prisma-client-py"
+  interface            = "asyncio"
+  recursive_type_depth = "5"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  password  String
+  name      String?
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(3)
+  Comment   Comment[]
+  Like      Like[]
+  Post      Post[]
+}
+
+model Post {
+  id        Int       @id @default(autoincrement())
+  userId    Int?
+  content   String?
+  createdAt DateTime  @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime  @updatedAt @db.Timestamptz(3)
+  Comment   Comment[]
+  Like      Like[]
+  User      User?     @relation(fields: [userId], references: [id])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  postId    Int?
+  content   String?
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  Post      Post?    @relation(fields: [postId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id])
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  postId    Int?
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @db.Timestamptz(3)
+  Post      Post?    @relation(fields: [postId], references: [id])
+  User      User?    @relation(fields: [userId], references: [id])
+}

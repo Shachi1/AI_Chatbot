@@ -1,0 +1,333 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "core-gpt",
+    "version": "1.0.0",
+    "title": "Core-GPT-Boilerplate",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Core GPT",
+      "description": "API for requesting and return core-gpt requests"
+    }
+  ],
+  "paths": {
+    "/api/v1/post/get?limit=20&page=1": {
+      "get": {
+        "summary": "summary",
+        "tags": [
+          "Post Request"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Post"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/post/add": {
+      "post": {
+        "tags": [
+          "Post Request"
+        ],
+        "summary": "summary",
+        "requestBody": {
+          "description": " Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Post"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/post/edit/{id}": {
+      "put": {
+        "summary": "summary",
+        "tags": [
+          "Post Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Request id"
+          }
+        ],
+        "requestBody": {
+          "description": "GPT Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Post"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Post"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+    "/api/v1/post/remove/{id}": {
+      "delete": {
+        "tags": [
+          "Post Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "description": "Request id"
+          }
+        ],
+        "summary": "summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comment/add": {
+      "post": {
+        "tags": [
+          "Comment Request"
+        ],
+        "summary": "summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comment/edit/{id}": {
+      "put": {
+        "tags": [
+          "Comment Request"
+        ],
+        "summary": "summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/comment/remove/{id}": {
+      "delete": {
+        "tags": [
+          "Comment Request"
+        ],
+        "summary": "summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Comment"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/like/add": {
+      "post": {
+        "tags": [
+          "Like Request"
+        ],
+        "summary": "summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Like"
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/like/remove/{id}": {
+      "delete": {
+        "tags": [
+          "Like Request"
+        ],
+        "summary": "summary",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Like"
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "name": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "DateTime"
+          },
+          "updatedAt": {
+            "type": "DateTime"
+          },
+          "Comment": {
+            "type": "object"
+          },
+          "Like": {
+            "type": "object"
+          },
+          "Post": {
+            "type": "object"
+          }
+        }
+      },
+      "Post": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "content": {
+            "type": "string",
+            "format": "string"
+          },
+          "createdAt": {
+            "type": "DateTime"
+          },
+          "updatedAt": {
+            "type": "DateTime"
+          },
+          "Comment": {
+            "type": "object"
+          },
+          "Like": {
+            "type": "object"
+          },
+          "User": {
+            "type": "object"
+          }
+        }
+      },
+      "Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "postId": {
+            "type": "integer"
+          },
+          "content": {
+            "type": "string",
+            "format": "string"
+          },
+          "createdAt": {
+            "type": "DateTime"
+          },
+          "updatedAt": {
+            "type": "DateTime"
+          },
+          "Like": {
+            "type": "object"
+          },
+          "User": {
+            "type": "object"
+          }
+        }
+      },
+      "Like": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "userId": {
+            "type": "integer"
+          },
+          "postId": {
+            "type": "integer"
+          },
+          "createdAt": {
+            "type": "DateTime"
+          },
+          "updatedAt": {
+            "type": "DateTime"
+          },
+          "Post": {
+            "type": "object"
+          },
+          "User": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,3 @@
-# Flask Boilerplate
-
 ### Prerequisites
 
 - Python 3.10

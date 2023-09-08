@@ -6,11 +6,7 @@
 
 ### Project Installation
 
-- Install `postgres` docker using following command:
-
-```
-$ docker run -it --name postgres -d -e POSTGRES_PASSWORD="password" -p 5432:5432 -v /var/lib/docker-db/postgresql/data:/var/lib/postgresql/data postgres
-```
+- Install `postgres` docker.
 
 - Go to root of this project.
 
